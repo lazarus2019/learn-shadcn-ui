@@ -5,6 +5,7 @@ import './App.css';
 import { Button } from './components/ui/button';
 import { Calendar } from './components/ui/calendar';
 import { ModeToggle } from './components/ui/mode-toggle';
+import Scrollbar from './components/scrollbar';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -40,6 +41,7 @@ function App() {
         onSelect={setDate}
         className="rounded-md border"
       />
+      <Scrollbar />
     </>
   );
 }
