@@ -6,6 +6,7 @@ import { Button } from './components/ui/button';
 import { Calendar } from './components/ui/calendar';
 import { ModeToggle } from './components/ui/mode-toggle';
 import Scrollbar from './components/scrollbar';
+import Header from './components/header';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -33,6 +34,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <Header />
       <Button>OK</Button>
       <ModeToggle />
       <Calendar
