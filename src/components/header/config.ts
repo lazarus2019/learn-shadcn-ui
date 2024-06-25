@@ -6,6 +6,7 @@ export type HeaderItem = {
   isLast?: boolean;
   isExternalLink?: boolean;
   children?: HeaderItem[];
+  hasChildren?: boolean;
 };
 
 const initialHeaderConfig = {
@@ -19,7 +20,7 @@ const initialHeaderConfig = {
       {
         title: 'Overview',
         isCategory: true,
-        isLast: true,
+        hasChildren: true,
         children: [{ title: 'Service Overview', href: '/services/overview' }],
       },
     ],
@@ -39,7 +40,6 @@ const initialHeaderConfig = {
       {
         title: 'Resources',
         isCategory: true,
-        isLast: true,
         children: [
           {
             title: 'FAQ',

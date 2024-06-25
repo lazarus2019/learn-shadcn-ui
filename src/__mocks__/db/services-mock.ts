@@ -63,6 +63,7 @@ const serviceCategoryDevToolsWithoutIntroduction: HeaderItem = {
   id: 'dev-tools',
   title: 'Dev Tools',
   isLast: true,
+  hasChildren: true,
 };
 
 const serviceCategoryDistribution: HeaderItem = {
@@ -76,6 +77,7 @@ const serviceCategoryDistributionWithoutIntroduction: HeaderItem = {
   id: 'distribution',
   title: 'Distribution',
   isLast: true,
+  hasChildren: true,
 };
 
 const serviceCategoryUserSegment: HeaderItem = {
@@ -89,6 +91,7 @@ const serviceCategoryUserSegmentWithoutIntroduction: HeaderItem = {
   id: 'user-segment',
   title: 'User segment',
   isLast: true,
+  hasChildren: true,
 };
 
 const serviceCategoryAnalyze: HeaderItem = {
@@ -102,6 +105,7 @@ const serviceCategoryAnalyzeWithoutIntroduction: HeaderItem = {
   id: 'analyze',
   title: 'Analyze',
   isLast: true,
+  hasChildren: true,
 };
 
 // =====Category=====

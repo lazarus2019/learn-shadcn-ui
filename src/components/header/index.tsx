@@ -3,19 +3,20 @@ import { apiEndpoints } from '@/configs/common';
 import { useEffect, useState } from 'react';
 import { HeaderItem, baseHeaderConfig } from './config';
 import { getAPIData, getHeaderConfig } from './helpers';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const [data, setData] = useState<HeaderItem[]>([]);
-  const configHeader = baseHeaderConfig;
+  // const configHeader = baseHeaderConfig;
   const apiHeader = headerMock;
 
-  console.log({ configHeader, apiHeader });
+  // console.log({ configHeader, apiHeader });
 
   useEffect(() => {
     getAPIData(apiEndpoints.services, setData);
   }, []);
 
-  console.log({ data });
+  // console.log({ data });
 
   const fetchedData = getHeaderConfig(data ?? []);
 
@@ -47,16 +48,16 @@ type ItemProps = {
 };
 
 function HeaderMenuItem({ item }: ItemProps) {
-  const { title, id, children, href, isExternalLink } = item;
+  const { title, children, href, isExternalLink } = item;
 
   const haveChildren = children && children?.length > 0;
   return (
     <div>
       {href ? (
-        <a href={href}>
+        <Link to={href}>
           {title}
           <span className="text-sky-500">- href</span>
-        </a>
+        </Link>
       ) : (
         <span>{title}</span>
       )}
@@ -75,9 +76,9 @@ function CategoryItem({ item }: ItemProps) {
   return (
     <div className="pl-8">
       {href ? (
-        <a href={href}>
+        <Link to={href}>
           {title} <span className="text-sky-500">- href</span>
-        </a>
+        </Link>
       ) : (
         <span>{title}</span>
       )}
@@ -90,13 +91,14 @@ function CategoryItem({ item }: ItemProps) {
 
 function ServiceItem({ item }: ItemProps) {
   const [data, setData] = useState<HeaderItem[]>([]);
-  const { title, children, href, id } = item;
-  const haveChildren = data && data?.length > 0;
+  const { title, href, id, hasChildren } = item;
 
   useEffect(() => {
-    getAPIData(apiEndpoints.servicesIntroduction, setData, {
-      service: id,
-    });
+    if (hasChildren) {
+      getAPIData(apiEndpoints.servicesIntroduction, setData, {
+        service: id,
+      });
+    }
   }, []);
 
   console.log({ categoryData: data });
@@ -104,17 +106,17 @@ function ServiceItem({ item }: ItemProps) {
   return (
     <div className="pl-8">
       {href ? (
-        <a href={href}>
+        <Link to={href}>
           {title}
           <span className="text-sky-500">- href</span>
-        </a>
+        </Link>
       ) : (
         <span>{title}</span>
       )}
 
-      {haveChildren && '>>>'}
+      {hasChildren && '>>>'}
 
-      {haveChildren &&
+      {hasChildren &&
         data.map((child) => (
           <ServiceIntroductionItem key={child.title} item={child} />
         ))}
@@ -128,10 +130,10 @@ function ServiceIntroductionItem({ item }: ItemProps) {
   return (
     <div className="pl-8">
       {href ? (
-        <a href={href}>
+        <Link to={href}>
           {title}
           <span className="text-sky-500">- href</span>
-        </a>
+        </Link>
       ) : (
         <span>{title}</span>
       )}

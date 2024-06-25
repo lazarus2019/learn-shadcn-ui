@@ -22,7 +22,6 @@ export const getAPIData = (
   params?: any
 ) => {
   axiosInstance.get(endpoint, { params }).then((response) => {
-    console.log(response.data);
     setData(response.data);
   });
 };
