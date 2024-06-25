@@ -115,8 +115,6 @@ function Scrollbar() {
     document.body.style.userSelect = '';
   };
 
-  console.log('re-render');
-
   return (
     <div className="container">
       <div

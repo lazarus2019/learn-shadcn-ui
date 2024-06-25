@@ -4,36 +4,42 @@ import { useEffect, useState } from 'react';
 import { HeaderItem, baseHeaderConfig } from './config';
 import { getAPIData, getHeaderConfig } from './helpers';
 import { Link } from 'react-router-dom';
+import {
+  useGetCategories,
+  useGetCategoryIntroduction,
+} from '@/services/category/hook';
 
 function Header() {
-  const [data, setData] = useState<HeaderItem[]>([]);
+  // const { data: queryData, isFetching } = useGetCategories();
+
+  // const [data, setData] = useState<HeaderItem[]>([]);
   // const configHeader = baseHeaderConfig;
   const apiHeader = headerMock;
 
   // console.log({ configHeader, apiHeader });
 
-  useEffect(() => {
-    getAPIData(apiEndpoints.services, setData);
-  }, []);
+  // useEffect(() => {
+  //   getAPIData(apiEndpoints.services, setData);
+  // }, []);
 
   // console.log({ data });
 
-  const fetchedData = getHeaderConfig(data ?? []);
+  const fetchedData = getHeaderConfig([]);
 
   return (
     <>
       <p>Header</p>
 
-      <div className="flex text-left gap-10">
+      {/* <div className="flex text-left gap-10">
         {apiHeader.map((item) => (
           <HeaderMenuItem key={item.title} item={item} />
         ))}
-      </div>
+      </div> */}
 
       <p>APIs</p>
 
       <div className="flex text-left gap-10">
-        {fetchedData.map((item) => (
+        {baseHeaderConfig.map((item) => (
           <HeaderMenuItem key={item.title} item={item} />
         ))}
       </div>
@@ -48,9 +54,18 @@ type ItemProps = {
 };
 
 function HeaderMenuItem({ item }: ItemProps) {
-  const { title, children, href, isExternalLink } = item;
+  const { title, children, href, isExternalLink, hasChildren } = item;
 
   const haveChildren = children && children?.length > 0;
+
+  const { data: queryData, isFetching } = useGetCategories(
+    { title },
+    {
+      enabled: hasChildren === true,
+    }
+  );
+  const isDataReady = !isFetching && queryData?.data;
+
   return (
     <div>
       {href ? (
@@ -61,9 +76,15 @@ function HeaderMenuItem({ item }: ItemProps) {
       ) : (
         <span>{title}</span>
       )}
+
       {haveChildren &&
         children.map((child) => (
           <CategoryItem key={child.title} item={child} />
+        ))}
+      {isFetching && 'Loading...'}
+      {isDataReady &&
+        queryData?.data.map((item) => (
+          <CategoryItem key={item.title} item={item} />
         ))}
     </div>
   );
@@ -90,18 +111,16 @@ function CategoryItem({ item }: ItemProps) {
 }
 
 function ServiceItem({ item }: ItemProps) {
-  const [data, setData] = useState<HeaderItem[]>([]);
   const { title, href, id, hasChildren } = item;
-
-  useEffect(() => {
-    if (hasChildren) {
-      getAPIData(apiEndpoints.servicesIntroduction, setData, {
-        service: id,
-      });
+  const { data: queryData, isFetching } = useGetCategoryIntroduction(
+    { service: id },
+    {
+      enabled: hasChildren === true,
     }
-  }, []);
+  );
+  const isDataReady = !isFetching && queryData?.data;
 
-  console.log({ categoryData: data });
+  console.log({ queryData });
 
   return (
     <div className="pl-8">
@@ -115,10 +134,11 @@ function ServiceItem({ item }: ItemProps) {
       )}
 
       {hasChildren && '>>>'}
+      {isFetching && 'Loading...'}
 
-      {hasChildren &&
-        data.map((child) => (
-          <ServiceIntroductionItem key={child.title} item={child} />
+      {isDataReady &&
+        queryData?.data.map((item) => (
+          <ServiceIntroductionItem key={item.title} item={item} />
         ))}
     </div>
   );

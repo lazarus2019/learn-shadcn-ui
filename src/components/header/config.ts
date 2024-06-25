@@ -16,11 +16,11 @@ const initialHeaderConfig = {
   },
   services: {
     title: 'Services',
+    hasChildren: true,
     children: [
       {
         title: 'Overview',
         isCategory: true,
-        hasChildren: true,
         children: [{ title: 'Service Overview', href: '/services/overview' }],
       },
     ],
