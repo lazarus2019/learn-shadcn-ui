@@ -24,7 +24,7 @@ export const handlers = [
 
     const data = listServiceIntroductionMock(service as string);
 
-    await delay(2000);
+    await delay(2000 + Math.random() * 3000);
 
     return HttpResponse.json({
       success: true,

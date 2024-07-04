@@ -7,6 +7,7 @@ export const baseHeaderTemp: HeaderItem[] = [
   },
   {
     title: 'Services',
+    hasChildren: true,
     children: [
       {
         title: 'Overview',
@@ -17,10 +18,12 @@ export const baseHeaderTemp: HeaderItem[] = [
       {
         title: 'Development & Launch Prep',
         isCategory: true,
+        hasChildren: true,
         children: [
           {
             title: 'Dev Tools',
             isLast: true,
+            hasChildren: true,
             children: [
               {
                 title: 'Translation Management Tool',

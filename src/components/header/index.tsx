@@ -2,14 +2,17 @@ import { headerMock } from '@/__mocks__/db/services-mock';
 import { apiEndpoints } from '@/configs/common';
 import { useEffect, useState } from 'react';
 import { HeaderItem, baseHeaderConfig } from './config';
-import { getAPIData, getHeaderConfig } from './helpers';
+// import { getAPIData, getHeaderConfig } from './helpers';
 import { Link } from 'react-router-dom';
 import {
   useGetCategories,
   useGetCategoryIntroduction,
 } from '@/services/category/hook';
 
-function Header() {
+import classes from './style.module.scss';
+import clsx from 'clsx';
+
+function Header({ type = 'Desktop' }: { type?: string }) {
   // const { data: queryData, isFetching } = useGetCategories();
 
   // const [data, setData] = useState<HeaderItem[]>([]);
@@ -24,11 +27,11 @@ function Header() {
 
   // console.log({ data });
 
-  const fetchedData = getHeaderConfig([]);
+  // const fetchedData = getHeaderConfig([]);
 
   return (
     <>
-      <p>Header</p>
+      <p>Header {type}</p>
 
       {/* <div className="flex text-left gap-10">
         {apiHeader.map((item) => (
@@ -59,15 +62,17 @@ function HeaderMenuItem({ item }: ItemProps) {
   const haveChildren = children && children?.length > 0;
 
   const { data: queryData, isFetching } = useGetCategories(
-    { title },
+    { service: title },
     {
       enabled: hasChildren === true,
+      staleTime: Infinity,
+      retry: false,//bleblele
     }
   );
   const isDataReady = !isFetching && queryData?.data;
 
   return (
-    <div>
+    <div className={classes['parent']}>
       {href ? (
         <Link to={href}>
           {title}
@@ -77,15 +82,17 @@ function HeaderMenuItem({ item }: ItemProps) {
         <span>{title}</span>
       )}
 
-      {haveChildren &&
-        children.map((child) => (
-          <CategoryItem key={child.title} item={child} />
-        ))}
-      {isFetching && 'Loading...'}
-      {isDataReady &&
-        queryData?.data.map((item) => (
-          <CategoryItem key={item.title} item={item} />
-        ))}
+      <div className={classes['children']}>
+        {haveChildren &&
+          children.map((child) => (
+            <CategoryItem key={child.title} item={child} />
+          ))}
+        {isFetching && 'Loading...'}
+        {isDataReady &&
+          queryData?.data.map((item) => (
+            <CategoryItem key={item.title} item={item} />
+          ))}
+      </div>
     </div>
   );
 }
@@ -116,6 +123,7 @@ function ServiceItem({ item }: ItemProps) {
     { service: id },
     {
       enabled: hasChildren === true,
+      staleTime: Infinity,
     }
   );
   const isDataReady = !isFetching && queryData?.data;
@@ -123,7 +131,7 @@ function ServiceItem({ item }: ItemProps) {
   console.log({ queryData });
 
   return (
-    <div className="pl-8">
+    <div className={clsx(classes['parent'], 'pl-8')}>
       {href ? (
         <Link to={href}>
           {title}
@@ -136,10 +144,12 @@ function ServiceItem({ item }: ItemProps) {
       {hasChildren && '>>>'}
       {isFetching && 'Loading...'}
 
-      {isDataReady &&
-        queryData?.data.map((item) => (
-          <ServiceIntroductionItem key={item.title} item={item} />
-        ))}
+      <div className={classes['children']}>
+        {isDataReady &&
+          queryData?.data.map((item) => (
+            <ServiceIntroductionItem key={item.title} item={item} />
+          ))}
+      </div>
     </div>
   );
 }

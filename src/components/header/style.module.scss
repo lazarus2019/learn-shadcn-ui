@@ -1,0 +1,11 @@
+.children {
+  opacity: 0.3;
+  transition: opacity 500ms ease;
+}
+
+.parent {
+  position: relative;
+  &:hover > .children {
+    opacity: 1;
+  }
+}
