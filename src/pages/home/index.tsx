@@ -8,6 +8,7 @@ import Scrollbar from '@/components/scrollbar';
 import { TempComponent } from '@/components/temp';
 import { useBeforeUnload } from 'react-router-dom';
 import { Popover } from '@/components/popover';
+import { Menu } from '@/components/popover/menu';
 
 function HomePage() {
   const [count, setCount] = useState(0);
@@ -58,8 +59,14 @@ function HomePage() {
   return (
     <div>
       HomePage
-
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum minus adipisci sed itaque ad, iure nesciunt veritatis, possimus eaque fuga <span>labore dolores veniam suscipit molestiae ipsam</span>, dolorum neque et! Veniam recusandae, inventore esse unde sunt, corporis ducimus dolor quaerat rerum provident consectetur aperiam quas culpa, mollitia sed accusantium similique minus!</p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum
+        minus adipisci sed itaque ad, iure nesciunt veritatis, possimus eaque
+        fuga <span>labore dolores veniam suscipit molestiae ipsam</span>,
+        dolorum neque et! Veniam recusandae, inventore esse unde sunt, corporis
+        ducimus dolor quaerat rerum provident consectetur aperiam quas culpa,
+        mollitia sed accusantium similique minus!
+      </p>
       <div>
         <img src={viteLogo} className="logo" alt="Vite logo" />
       </div>
@@ -77,7 +84,8 @@ function HomePage() {
       </p>
       <TempComponent />
       <Button>OK</Button>
-      <Popover />
+      {/* <Popover /> */}
+      <Menu />
       <ModeToggle />
       <Calendar
         mode="single"

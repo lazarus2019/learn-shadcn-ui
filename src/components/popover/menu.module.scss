@@ -1,0 +1,32 @@
+.menu-wrapper {
+}
+
+.menu-item-wrapper {
+  + .menu-item-wrapper {
+    margin-top: 16px;
+  }
+}
+
+.menu-item-btn {
+  max-width: 200px;
+  width: 100%;
+  padding: 16px 0;
+  background-color: gray;
+}
+
+.menu-item-content {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 8px;
+  background-color: #fff;
+  color: #000;
+}
+
+.submenu-item {
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: aquamarine;
+  }
+}

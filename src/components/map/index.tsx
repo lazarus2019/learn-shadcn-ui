@@ -6,7 +6,7 @@ export const MapLocale = () => {
     isLoading,
     isFetching,
   } = useGetCategoryIntroduction({
-    service: 'dev-tools',
+    service: 'user-segment',
   });
   useEffect(() => {
     console.log('MapLocale:::useEffect:::IN');

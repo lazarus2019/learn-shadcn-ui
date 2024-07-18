@@ -103,22 +103,22 @@ export function Popover() {
     whileElementsMounted: autoUpdate,
   });
 
-  //   const click = useClick(context);
-  const hover = useHover(context, {
-    delay: { open: 0.25 },
-    handleClose: safePolygon({
-      blockPointerEvents: true,
-    }),
-  });
+    const click = useClick(context);
+  // const hover = useHover(context, {
+  //   delay: { open: 0.25 },
+  //   handleClose: safePolygon({
+  //     blockPointerEvents: true,
+  //   }),
+  // });
   const dismiss = useDismiss(context);
   const role = useRole(context);
 
   // Merge all the interactions into prop getters
-  const { getReferenceProps, getFloatingProps } = useInteractions([
-    // click,
+  const { getReferenceProps, getFloatingProps} = useInteractions([
+    click,
     dismiss,
     role,
-    hover,
+    // hover,
   ]);
 
   return (
