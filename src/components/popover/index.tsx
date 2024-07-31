@@ -85,7 +85,7 @@ export function Popover() {
     open: isOpen,
     placement: 'right',
     onOpenChange: setIsOpen,
-    strategy: 'fixed',
+    strategy: 'absolute',
     middleware: [
       offset(20),
       flip(),
@@ -103,7 +103,7 @@ export function Popover() {
     whileElementsMounted: autoUpdate,
   });
 
-    const click = useClick(context);
+  const click = useClick(context);
   // const hover = useHover(context, {
   //   delay: { open: 0.25 },
   //   handleClose: safePolygon({
@@ -114,7 +114,7 @@ export function Popover() {
   const role = useRole(context);
 
   // Merge all the interactions into prop getters
-  const { getReferenceProps, getFloatingProps} = useInteractions([
+  const { getReferenceProps, getFloatingProps } = useInteractions([
     click,
     dismiss,
     role,
@@ -122,7 +122,7 @@ export function Popover() {
   ]);
 
   return (
-    <>
+    <div style={{ overflow: 'hidden', width: '300px' }}>
       <button
         ref={refs.setReference}
         {...getReferenceProps()}
@@ -167,8 +167,11 @@ export function Popover() {
           height={20}
           tipRadius={2}
           strokeWidth={2}
+          visibility={
+            middlewareData.hide?.referenceHidden ? 'hidden' : 'visible'
+          }
         />
       </div>
-    </>
+    </div>
   );
 }

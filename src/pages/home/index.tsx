@@ -84,7 +84,7 @@ function HomePage() {
       </p>
       <TempComponent />
       <Button>OK</Button>
-      {/* <Popover /> */}
+      <Popover />
       <Menu />
       <ModeToggle />
       <Calendar

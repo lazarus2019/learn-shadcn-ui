@@ -1,4 +1,4 @@
-import { UseQueryOptions, useQuery } from '@tanstack/react-query';
+import { QueryClient, UseQueryOptions, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { categoriesAPIs } from './api';
 import { categoriesQueryKeys } from './constant';
@@ -33,5 +33,15 @@ export function useGetCategoryIntroduction<Data = CategoryListResponse>(
     queryKey,
     queryFn: () => categoriesAPIs.getIntroduction(params),
     ...options,
+  });
+}
+
+export function getCategoryIntroduction(params: CategoryGetListParams) {
+  const queryClient = new QueryClient();
+  const queryKey = categoriesQueryKeys.getListIntroduction(params);
+
+  return queryClient.fetchQuery({
+    queryKey,
+    queryFn: () => categoriesAPIs.getIntroduction(params),
   });
 }

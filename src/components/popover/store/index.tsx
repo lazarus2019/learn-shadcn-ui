@@ -2,6 +2,7 @@ import {
   autoPlacement,
   autoUpdate,
   inline,
+  flip,
   offset,
   shift,
   hide,
@@ -46,7 +47,7 @@ export const usePopover = () => {
       inline(),
       shift({ padding: { top: 40, bottom: 20 } }),
       hide(),
-      //   flip(),
+        // flip(),
       autoPlacement(),
       //   size(),
       //   arrow({ element: arrowRef }), //
